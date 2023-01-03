@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('./partials/head'); %>
+</head>
+<body>
+    <%- include('./partials/navbar'); %>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 m-auto">
+                <h1 class="text-center display-5 my-4">
+                    Add  School
+                </h1>
+                <form action="/v1/school/add" method="post">
+                    <div class="row mt-4">
+                        <div class="col">
+                            <input type="text" class="form-control" name="schoolName" placeholder="School Name"
+                                aria-label="School Name">
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" name="schoolAbbr" placeholder="School Abbreviation"
+                                aria-label="School Abbreviation">
+                        </div>
+
+                    </div>
+                     <div class="d-grid col-6 mx-auto mt-3">
+                         <input type="submit" value="Submit" class="btn btn-primary">
+                     </div>
+                </form>
+                    <hr>
+                    <h1 class="text-center display-5 my-4">
+                        Delete School
+                    </h1>
+                <form action="/v1/school/delete?_method=DELETE" method="post">
+                    <div class="row mt-4">
+                        <div class="col">
+                           <select name="deleteSchool" class="form-select form-select-lg mb-3" aria-label="Delete school selection">
+                               <option selected>Select school to delete</option>
+                               <% school_Data.forEach(school => { %>
+                                <option value="<%= school.id %> "><%= school.schoolName %> </option>
+                               <% }) %>
+                           </select>
+                        </div>
+                    </div>
+                    <div class="d-grid col-6 mx-auto mt-3">
+                        <input type="submit" value="Delete" class="btn btn-danger">
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+</body>
+</html>

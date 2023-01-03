@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('./partials/head'); %>
+</head>
+
+<body>
+    <%- include('./partials/navbar'); %>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 m-auto">
+                <h1 class="text-center display-5 my-4">
+                    Add  Departments
+                </h1>
+                <form action="/v1/departments/add" method="post">
+
+                    <div class="row mt-4">
+                        <div class="col">
+                            <select name="schoolName" class="form-select form-select " aria-label="School Names">
+                                <option selected>School Name</option>
+                                <% school_Data.forEach(school => { %>
+                                 <option value="<%= school.schoolName %> "> <%= school.schoolName %> </option>
+                                <% }) %>
+                               
+                            </select>
+                        </div>
+                        <div class="col">
+                            <input type="text" name="deptName"  class="form-control"
+                                placeholder="Department Name (eg Electrical)" aria-label="Department Name">
+                        </div>
+                        <div class="col">
+                            <input type="text" name="deptAbbr"  class="form-control"
+                                placeholder="Department Abbreviation (eg ECE)" aria-label="Department Abbreviation">
+                        </div>
+
+                    </div>
+                    <div class="d-grid col-6 mx-auto mt-3">
+                        <input type="submit" value="Submit" class="btn btn-primary">
+                    </div>
+                </form>
+                <hr>
+                <h1 class="text-center display-5 my-4">
+                    Update Departments
+                </h1>
+                <form action="/v1/departments/updateOne?_method=PATCH" method="post">
+
+                    <div class="row mt-4">
+                        <div class="col">
+                            <select id="SchoolsUpdate" name="schoolName" class="form-select form-select " aria-label="School Names">
+                                <option selected>School Name</option>
+                                <% school_Data.forEach(school => { %>
+                                <option value="<%= school.schoolName %> "> <%= school.schoolName %> </option>
+                                <% }) %>
+
+                            </select>
+                        </div>
+                        <div class="col">
+                           <select id="DepartmentsUpdate" name="deptName" class="form-select" aria-label="Department Names">
+                               <option value="" selected>Department Names</option>
+                               
+                           </select>
+                        </div>
+                        <div class="col">
+                            <input type="text" name="newDeptName" class="form-control"
+                                placeholder="New Department Name (eg ECE)" aria-label="New Department Name">
+                        </div>
+
+                    </div>
+                    <div class="d-grid col-6 mx-auto mt-3">
+                        <input type="submit" value="Update" class="btn btn-primary">
+                    </div>
+                </form>
+                <hr>
+                <h1 class="text-center display-5 my-4">
+                    Delete Departments
+                </h1>
+                <form action="/v1/departments/delete?_method=DELETE" method="post">
+
+                    <div class="row mt-4">
+                        <div class="col">
+                            <select  id="SchoolsDel" name="schoolName" class="form-select form-select " aria-label="School Names">
+                                <option value="" selected>School Name</option>
+                                <% school_Data.forEach(school => { %>
+                                <option value="<%= school.schoolName %> "> <%= school.schoolName %> </option>
+                                <% }) %>
+
+                            </select>
+                        </div>
+                        <div class="col">
+                            <select id="DepartmentsDel"name="deleteIdName" class="form-select " aria-label="Department Names">
+                                <option value="" selected>Department Names</option>
+                            </select>
+                        </div>
+                      
+                    </div>
+                    <div class="d-grid col-6 mx-auto mt-3">
+                        <input type="submit" value="Delete" class="btn btn-danger">
+                    </div>
+                </form>
+               
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+        function getId(element){
+            return document.getElementById(element)
+        }
+
+        function fetch_Data(parent_element,child_element,type){
+            fetch(`get_data/dept?type=${type}&parent_value=${parent_element.value}`).then(response =>{
+                return response.json()
+            }).then( responseData =>{
+                let htmlValue = '' 
+                if(type == 'load_depts_update'){
+                    htmlValue='<option value=""> Department Names</option>'
+                    responseData.forEach(data =>{
+                    htmlValue+=`<option value=${data._id}>${data.deptName}</option>`
+                    })
+                }
+                if(type == 'load_depts_del'){
+                 htmlValue='<option value=""> Department Names</option>'
+                 responseData.forEach(data =>{
+                 htmlValue+=`<option value=${data._id}>${data.deptName}</option>`
+                 })
+                }
+                
+                child_element.innerHTML= htmlValue;
+            })
+        }
+        getId('SchoolsUpdate').onchange=function(){
+            fetch_Data(getId('SchoolsUpdate'),getId('DepartmentsUpdate'),'load_depts_update')
+        }
+        getId('SchoolsDel').onchange=function(){
+
+        fetch_Data(getId('SchoolsDel'),getId('DepartmentsDel'),'load_depts_del')
+        }
+    </script>
+</body>
+
+</html>

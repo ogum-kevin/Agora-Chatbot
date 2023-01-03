@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('./partials/head'); %>
+</head>
+
+<body>
+    <%- include('./partials/navbar'); %>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 m-auto">
+                <h1 class="text-center display-4 my-4">
+                    Welcome to @AgoraChat!
+                </h1>
+                <p style="text-align: center;"> Your one stop shop for all examination material and course content</p>
+                <form action="/v1/exams/add" method="post" enctype="multipart/form-data">
+
+                    <div class="row mt-4">
+                        <div class="col">
+                            <select name="schoolName" class="form-select" aria-label="School Names" id="schools">
+                                <option  value="" selected>School Name</option>
+                                <% school_Data.forEach(school => { %>
+                                <option value="<%= school.schoolName %> "><%= school.schoolName %> </option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <select name="deptName" class="form-select" aria-label="Department Name" id="Department">
+                                <option value="" selected>Department Name</option>
+                                
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col">
+                            <input type="text" name="courseCode" class="form-control" placeholder="Course Code"
+                                aria-label="Course Code">
+                        </div>
+                        <div class="col">
+                            <input type="text" name="courseName" class="form-control" placeholder="Course Name"
+                                aria-label="Course Name">
+                        </div>
+
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col">
+                            <input type="text" name="examYear" class="form-control"
+                                placeholder="Exam  Year(for example 2018/19)" aria-label="Exam Year">
+                        </div>
+                        <div class="col">
+                            <select name="examStage" class="form-select" aria-label="Exam Stage">
+                                <option value="" selected>Select Stage(eg.Y1S2)</option>
+                                <% stage_Data.forEach(stages => { %>
+                                 <option value="<%= stages %> "> <%= stages %> </option>
+                                <% }) %>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col">
+                            <input type="text" name="examLectrurer" class="form-control" placeholder="Lecturer "
+                                aria-label="Lecturer">
+                        </div>
+                        <div class="col">
+                            <div>
+                                <input type="file" name="document" id="file" class="form-control">
+                                <label for="file" class="custom-file-label"></label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="d-grid col-6 mx-auto mt-3">
+                        <input type="submit" value="Submit" class="btn btn-primary">
+                    </div>
+
+                </form>
+            </div>
+           
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
+    </script>
+
+    <script>
+        function _(element){
+            return document.getElementById(element)
+        }
+
+        const fetchData =  (parent_element,child_element,type) =>{
+             fetch('/get_data?type='+type+'&parent_value='+parent_element.value+'').then(response=>{
+                return response.json()
+             }).then(responseData =>{
+                let htmlValue= '';
+
+                if(type == 'load_department'){
+                    htmlValue ='<option value="">Select Department</option>'
+                }
+                 if(type == 'load_course'){
+                 htmlValue ='<option value=""> Select Courses</option>'
+                 }
+                 responseData.forEach(value =>{
+                    htmlValue += ' <option value="'+value+'">'+value+'</option>'
+                 })
+                 child_element.innerHTML=htmlValue;
+             })
+        }
+
+        _('schools').onchange= function(){
+            fetchData(_('schools'),_('Department'),'load_department')
+        }
+         _('Departments').onchange= function(){
+         fetchData(_('Department'),_('Courses'),'load_courses')
+         }
+    </script>
+</body>
+
+</html>

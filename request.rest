@@ -1,0 +1,9 @@
+POST http://localhost:3000/v1/departments/add
+Content-Type: application/json
+
+{
+    "deptName":"Manufacturing ,Industrial and Textile",
+    "deptAbbr": "MIt"
+}
+###
+GET http://localhost:3000/v1/exams/findOne/cit234/jan
