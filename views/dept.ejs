@@ -12,15 +12,15 @@
 <body>
     <%- include('./partials/navbar'); %>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6 m-auto">
+        <div class="row align-items-center g-3">
+            <div class="col-md-auto col-12">
                 <h1 class="text-center display-5 my-4">
                     Add  Departments
                 </h1>
                 <form action="/v1/departments/add" method="post">
 
-                    <div class="row mt-4">
-                        <div class="col">
+                    <div class="row align-items-center g-3 ">
+                        <div class="col-md-auto col-12">
                             <select name="schoolName" class="form-select form-select " aria-label="School Names">
                                 <option selected>School Name</option>
                                 <% school_Data.forEach(school => { %>
@@ -29,11 +29,11 @@
                                
                             </select>
                         </div>
-                        <div class="col">
+                        <div class="col-md-auto col-12">
                             <input type="text" name="deptName"  class="form-control"
                                 placeholder="Department Name (eg Electrical)" aria-label="Department Name">
                         </div>
-                        <div class="col">
+                        <div class="col-md-auto col-12">
                             <input type="text" name="deptAbbr"  class="form-control"
                                 placeholder="Department Abbreviation (eg ECE)" aria-label="Department Abbreviation">
                         </div>
