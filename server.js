@@ -4,7 +4,6 @@ const bodyParser = require('body-parser')
 const schools = require('./models-chatbot/schools')
 const examination = require('./models-chatbot/examinations')
 const conn = require('./db');
-const School = require('./models-chatbot/schools')
 const WebHookRoute =require('./routes-chatbot/webhook')
 const SchoolRoute = require('./routes-chatbot/school')
 const ExamRoute = require('./routes-chatbot/examinations')
@@ -58,8 +57,8 @@ app.get('/get_data', async (req, res) => {
     let parentFilter = req.query.parent_value;
     let responsList = [];
     if (typeFilter = 'load_department') {
-        const deptList = await examination.find({
-            schoolName: parentFilter
+        const deptList = await Department.find({
+            schoolName: `${parentFilter} `
         })
         deptList.map(departments => {
             responsList.push(departments.deptName);
@@ -67,7 +66,7 @@ app.get('/get_data', async (req, res) => {
     }
     if (typeFilter = 'load_course') {
         const deptList = await examination.find({
-            schoolName: parentFilter
+            schoolName: `${parentFilter} `
         })
         deptList.map(departments => {
             if (departments != null) {
