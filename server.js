@@ -113,11 +113,18 @@ app.get('/aboutus', async (req, res) => {
 app.get('/contactus', async (req, res) => {
     res.render('contactus')
 })
+let SchoolEmptyList=[{
+    id:'123',
+    schoolName:'No Schools found',
+    schoolAbbr:""
+}]
 app.get('/schools', async (req, res) => {
     const schoolList = await schools.find()
-    if (!schoolList || schoolList.length=== 0) return res.status(404).json({
-        message: "No lists found"
+    if (!schoolList || schoolList.length === 0) return res.render('schools', {
+        school_Data: SchoolEmptyList
     })
+        
+    
     res.render('schools', {
         school_Data: schoolList,
     })

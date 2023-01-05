@@ -34,7 +34,7 @@ router.post(`/${schoolPath}/add`, async(req,res) =>{
        return res.status(500).json(errormessage)
     }
 
-   return res.status(200).json(successMessage)
+   return res.redirect('/schools');
 })
 
 
