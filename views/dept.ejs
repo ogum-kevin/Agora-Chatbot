@@ -49,8 +49,8 @@
                 </h1>
                 <form action="/v1/departments/updateOne?_method=PATCH" method="post">
 
-                    <div class="row mt-4">
-                        <div class="col">
+                    <div class="row align-items-center g-3">
+                        <div class="col-md-auto col-12">
                             <select id="SchoolsUpdate" name="schoolName" class="form-select form-select " aria-label="School Names">
                                 <option selected>School Name</option>
                                 <% school_Data.forEach(school => { %>
@@ -59,13 +59,13 @@
 
                             </select>
                         </div>
-                        <div class="col">
+                        <div class="col-md-auto col-12">
                            <select id="DepartmentsUpdate" name="deptName" class="form-select" aria-label="Department Names">
                                <option value="" selected>Department Names</option>
                                
                            </select>
                         </div>
-                        <div class="col">
+                        <div class="col-md-auto col-12">
                             <input type="text" name="newDeptName" class="form-control"
                                 placeholder="New Department Name (eg ECE)" aria-label="New Department Name">
                         </div>
@@ -81,8 +81,8 @@
                 </h1>
                 <form action="/v1/departments/delete?_method=DELETE" method="post">
 
-                    <div class="row mt-4">
-                        <div class="col">
+                    <div class="row align-items-center g-3">
+                        <div class="col-md-auto col-12">
                             <select  id="SchoolsDel" name="schoolName" class="form-select form-select " aria-label="School Names">
                                 <option value="" selected>School Name</option>
                                 <% school_Data.forEach(school => { %>
@@ -91,7 +91,7 @@
 
                             </select>
                         </div>
-                        <div class="col">
+                        <div class="col-md-auto col-12">
                             <select id="DepartmentsDel"name="deleteIdName" class="form-select " aria-label="Department Names">
                                 <option value="" selected>Department Names</option>
                             </select>
