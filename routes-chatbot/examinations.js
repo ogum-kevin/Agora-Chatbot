@@ -73,7 +73,7 @@ Router.post(`/${ExamPath}/add`, uploads.single('document'), async (req, res) => 
             return res.status(500).json("The exam has not been saved")
         }
 
-        return res.render('aboutus');
+        return res.redirect('/');
 
     } catch (error) {
         return res.status(403).json(error)
