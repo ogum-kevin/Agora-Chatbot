@@ -4,8 +4,8 @@
   "description": "This is the creation of a whatsapp chatbot for automatic dispensing of past papers int the school of engineering",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start" :"node server.js"
+    "start" :"node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kevin Ogum",
   "license": "ISC",
